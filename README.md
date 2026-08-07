@@ -24,7 +24,7 @@ A logistics hub for creators, SMM managers, and bloggers. Keep your ideas, scrip
 </p>
 
 ### 🛠 Content Management Modules
-We have divided the workspace into specialized tools so you can focus on what matters most:
+I've divided the workspace into specialized tools so you can focus on what matters most:
 
 <p align="center">
   <img src="screenshots/Contentinator.png" width="45%" alt="Contentinator and Notes">
