@@ -13,7 +13,7 @@
 
 A logistics hub for creators, SMM managers, and bloggers. Keep your ideas, scripts, rubrics, and ad campaigns organized — all in one app.
 
-[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.1-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator-apk/releases/latest)
+[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.1-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator/releases/latest)
 
 ---
 
@@ -68,7 +68,7 @@ The project works locally and does not collect your personal data.
 Found a bug or have a feature request? I'm always open to feedback:
 * **Telegram Channel:** [@djilusha](https://t.me/djilusha)
 * **Business Card Bot:** [@ilushasankov_bot](https://t.me/ilushasankov_bot)
-* **Issues:** [Report a Bug](https://github.com/ilushasankov/contentinator-apk/issues)
+* **Issues:** [Report a Bug](https://github.com/ilushasankov/contentinator/issues)
 
 ---
 
