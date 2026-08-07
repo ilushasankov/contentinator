@@ -63,9 +63,9 @@
 ---
 
 ## 💬 Обратная связь
-Нашли баг или есть идея? Мы всегда на связи:
-* **Telegram:** [@djilusha](https://t.me/djilusha)
-* **Поддержка:** [@ilushasankov_bot](https://t.me/ilushasankov_bot)
+Нашли баг или есть идея? Я всегда на связи:
+* **Telegram-бложек:** [@djilusha](https://t.me/djilusha)
+* **Бот-визитка:** [@ilushasankov_bot](https://t.me/ilushasankov_bot)
 * **Issues:** [Сообщить об ошибке](https://github.com/ilushasankov/contentinator-apk/issues)
 
 ---
