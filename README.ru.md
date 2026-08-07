@@ -66,7 +66,6 @@
 Нашли баг или есть идея? Я всегда на связи:
 * **Telegram-бложек:** [@djilusha](https://t.me/djilusha)
 * **Бот-визитка:** [@ilushasankov_bot](https://t.me/ilushasankov_bot)
-* **Issues:** [Сообщить об ошибке](https://github.com/ilushasankov/contentinator/issues)
 
 ---
 
