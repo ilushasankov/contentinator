@@ -11,7 +11,7 @@
 
 Логистический хаб для криэйторов, SMM-менеджеров и блогеров. Порядок в идеях, сценариях, рубриках и рекламных компаниях — в одном приложении.
 
-[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.1-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator-apk/releases/latest)
+[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.1-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator/releases/latest)
 
 ---
 
@@ -66,7 +66,7 @@
 Нашли баг или есть идея? Я всегда на связи:
 * **Telegram-бложек:** [@djilusha](https://t.me/djilusha)
 * **Бот-визитка:** [@ilushasankov_bot](https://t.me/ilushasankov_bot)
-* **Issues:** [Сообщить об ошибке](https://github.com/ilushasankov/contentinator-apk/issues)
+* **Issues:** [Сообщить об ошибке](https://github.com/ilushasankov/contentinator/issues)
 
 ---
 
