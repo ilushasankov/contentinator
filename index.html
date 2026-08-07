@@ -105,9 +105,6 @@
         footer { padding: 40px; text-align: center; color: #555; font-size: 0.9rem; }
         footer a { color: #888; text-decoration: none; margin: 0 10px; }
 
-        /* Multilang Logic */
-        [data-lang="en"] { display: none; }
-
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .hero { padding-top: 80px; }
@@ -135,7 +132,7 @@
     </section>
 
     <div class="grid" id="modulesGrid">
-        <!-- Cards will be injected by JS or hardcoded -->
+        <!-- Cards injected by JS -->
     </div>
 
     <section class="agent-section">
@@ -147,11 +144,11 @@
     <footer>
         <p>&copy; 2026 Contentinator by Ilusha Sankov</p>
         <a href="https://github.com/ilushasankov" target="_blank">GitHub</a> | 
-        <a href="privacy.html" data-lang-id="privacy">Политика конфиденциальности</a>
+        <a href="privacy.html#ru" id="privacyLink" data-lang-id="privacy">Политика конфиденциальности</a>
     </footer>
 
     <script>
-        // ВСТАВЬ СЮДА СВОЮ ССЫЛКУ ИЗ RELEASE
+        // Ссылка на APK файл из раздела Releases
         const APK_URL = "https://github.com/ilushasankov/contentinator/releases/download/v1.1.1/Contentinator_v1.1.1.apk";
 
         const translations = {
@@ -188,20 +185,22 @@
         };
 
         function setLang(lang) {
+            // Update buttons state
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
             });
 
-            // Update simple texts
+            // Update main text elements
             document.querySelectorAll('[data-lang-id]').forEach(el => {
                 const id = el.getAttribute('data-lang-id');
                 if (translations[lang][id]) el.innerText = translations[lang][id];
             });
 
-            // Update Download link
+            // Update URLs
             document.getElementById('mainDownloadBtn').href = APK_URL;
+            document.getElementById('privacyLink').href = `privacy.html#${lang}`;
 
-            // Update Grid
+            // Re-render modules grid
             const grid = document.getElementById('modulesGrid');
             grid.innerHTML = translations[lang].modules.map(m => `
                 <div class="module-card">
@@ -212,8 +211,8 @@
             `).join('');
         }
 
-        // Initialize
+        // Run on load
         setLang('ru');
     </script>
 </body>
-</html> 
+</html>
