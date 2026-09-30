@@ -102,6 +102,16 @@
 
         .warning-footer { color: var(--error); font-size: 0.85rem; max-width: 600px; margin: 40px auto; padding: 15px; border: 1px dashed var(--error); border-radius: 15px; }
 
+        .updates-section { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+        .updates-section h2 { color: var(--accent); }
+        .release-notes { background: var(--surface); padding: 28px; border-radius: 18px; border: 1px solid #333; }
+        .release-notes h3 { margin-top: 0; color: var(--primary); }
+        .release-notes ul { padding-left: 22px; color: var(--text-dim); }
+        .screenshots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+        .screenshot-card { margin: 0; background: var(--surface); border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+        .screenshot-card img { display: block; width: 100%; height: auto; }
+        .screenshot-card figcaption { padding: 12px 14px; color: var(--text-dim); }
+
         footer { padding: 40px; text-align: center; color: #555; font-size: 0.9rem; }
         footer a { color: #888; text-decoration: none; margin: 0 10px; }
 
@@ -141,6 +151,19 @@
         <p data-lang-id="agent-desc">Встроенный ИИ-помощник, который знает всё о твоём контенте. Дожмёт пост, напишет сценарий и выведет из кризиса.</p>
     </section>
 
+    <section class="updates-section">
+        <h2 data-lang-id="release-heading">Последнее обновление</h2>
+        <div class="release-notes">
+            <h3>Contentinator 1.1.2</h3>
+            <ul id="releaseNotes"></ul>
+        </div>
+    </section>
+
+    <section class="updates-section">
+        <h2 data-lang-id="screenshots-heading">Скриншоты</h2>
+        <div class="screenshots-grid" id="screenshotsGrid"></div>
+    </section>
+
     <footer>
         <p>&copy; 2026 Contentinator by Ilusha Sankov</p>
         <a href="https://github.com/ilushasankov" target="_blank">GitHub</a> | 
@@ -149,7 +172,7 @@
 
     <script>
         // Ссылка на APK файл из раздела Releases
-        const APK_URL = "https://github.com/ilushasankov/contentinator/releases/download/v1.1.1/Contentinator_v1.1.1.apk";
+        const APK_URL = "https://github.com/ilushasankov/contentinator/releases/download/v1.1.2/Contentinator_v1.1.2.apk";
 
         const translations = {
             ru: {
@@ -159,12 +182,29 @@
                 "agent-title": "Агент 42",
                 "agent-desc": "Твой личный ИИ-ассистент. Он анализирует все твои модули и помогает создавать контент на основе твоего Tone of Voice.",
                 privacy: "Приватность",
+                "release-heading": "Последнее обновление",
+                "screenshots-heading": "Скриншоты",
+                releaseNotes: [
+                    "Новый раздел «Политика и логи» в настройках.",
+                    "Глобальное обновление Агента 42: роль «Джей Джона» для адаптации новостей по ссылкам; создание заметок и стикеров из сообщений и выделенного текста; улучшенный поиск по базе и более качественные ответы.",
+                    "Сезонное оформление, тема «Windows 95», пользовательские фоны и аватарки в чате, новые анимации, праздничные фразы и визуальные улучшения.",
+                    "Экспорт всей базы в Markdown и быстрая синхронизация бэкапа; «Цитатник» 2.0 для анонсов и объявлений от администратора.",
+                    "Исправлена работа ссылок в модуле «Профиль» и повышена общая стабильность."
+                ],
                 modules: [
                     { icon: "💡", title: "Контентинатор", desc: "Сборник идей и черновиков. Твой идеальный контент-план на недели вперед." },
                     { icon: "🎬", title: "Сценаринатор", desc: "Удобная работа со сценариями для Reels, YouTube и TikTok по сценам." },
                     { icon: "🧩", title: "Рубрикатор", desc: "Система постоянных рубрик для сообществ без выгорания." },
                     { icon: "📑", title: "Канбанинатор", desc: "Визуализация задач и процессов на стильной доске." },
                     { icon: "📊", title: "Рекламоинатор", desc: "Контроль бюджетов, закупка рекламы и расчет стоимости подписчика (CPS)." }
+                ],
+                screenshots: [
+                    { file: "ContentinatorRU.png", title: "Контентинатор" },
+                    { file: "ScenarinatorRU.png", title: "Сценаринатор" },
+                    { file: "KanbanRU.png", title: "Канбанинатор" },
+                    { file: "ModulesRU.png", title: "Модули" },
+                    { file: "ProfileRU.png", title: "Профиль" },
+                    { file: "AIRU.png", title: "Агент 42" }
                 ]
             },
             en: {
@@ -174,17 +214,36 @@
                 "agent-title": "Agent 42",
                 "agent-desc": "Built-in AI assistant that understands your entire database. It polishes posts and breaks creative blocks.",
                 privacy: "Privacy Policy",
+                "release-heading": "Latest Update",
+                "screenshots-heading": "Screenshots",
+                releaseNotes: [
+                    "Added a new Policy & Logs section in Settings.",
+                    "Major Agent 42 update: the Jay Jonah role adapts news from links; create notes and stickers from messages or selected text; improved database search and answer quality.",
+                    "Seasonal decorations, a Windows 95 theme, custom chat backgrounds and avatars, new animations, festive messages, and visual refinements.",
+                    "Export the full database to Markdown and sync backups faster; Quote Book 2.0 for admin announcements and important updates.",
+                    "Fixed links in the Profile module and improved overall stability."
+                ],
                 modules: [
                     { icon: "💡", title: "Contentinator", desc: "Idea hub and drafts. Your perfect content plan weeks in advance." },
                     { icon: "🎬", title: "Scenarinator", desc: "Script engine for Reels, YouTube, and TikTok broken into scenes." },
                     { icon: "🧩", title: "Rubricator", desc: "Manage recurring community categories without the burnout." },
                     { icon: "📑", title: "Kanbaninator", desc: "Task visualization and workflow management on a sleek board." },
                     { icon: "📊", title: "Ad-inator", desc: "Budget control, ad placements, and subscriber cost (CPS) tracking." }
+                ],
+                screenshots: [
+                    { file: "Contentinator.png", title: "Contentinator" },
+                    { file: "Scenarinator.png", title: "Scenarinator" },
+                    { file: "Kanban.png", title: "Kanbaninator" },
+                    { file: "Modules.png", title: "Modules" },
+                    { file: "Profile.png", title: "Profile" },
+                    { file: "AI.png", title: "Agent 42" }
                 ]
             }
         };
 
         function setLang(lang) {
+            document.documentElement.lang = lang;
+
             // Update buttons state
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
@@ -208,6 +267,17 @@
                     <h3>${m.title}</h3>
                     <p>${m.desc}</p>
                 </div>
+            `).join('');
+
+            document.getElementById('releaseNotes').innerHTML = translations[lang].releaseNotes
+                .map(note => `<li>${note}</li>`).join('');
+
+            const screenshotFolder = lang === 'ru' ? 'Screenshots%20RU' : 'Screenshots%20EN';
+            document.getElementById('screenshotsGrid').innerHTML = translations[lang].screenshots.map(image => `
+                <figure class="screenshot-card">
+                    <img src="screenshots/${screenshotFolder}/${image.file}" alt="${image.title}" loading="lazy">
+                    <figcaption>${image.title}</figcaption>
+                </figure>
             `).join('');
         }
 
