@@ -4,40 +4,47 @@
 
 ![Platform](https://img.shields.io/badge/platform-Android-green.svg)
 ![Android](https://img.shields.io/badge/minOS-Android_12-blue.svg)
-![Size](https://img.shields.io/badge/size-~6_MB-orange.svg)
+![Size](https://img.shields.io/badge/size-~7.4_MB-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 
 ---
 
 Логистический хаб для криэйторов, SMM-менеджеров и блогеров. Порядок в идеях, сценариях, рубриках и рекламных компаниях — в одном приложении.
 
-[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.1-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator/releases/latest)
+[<img src="https://img.shields.io/badge/DOWNLOAD-APK_v1.1.2-success?style=for-the-badge&logo=android" height="40">](https://github.com/ilushasankov/contentinator/releases/download/v1.1.2/Contentinator_v1.1.2.apk)
+
+## ✨ Что нового в v1.1.2
+
+- В настройках появился раздел «Политика и логи».
+- Обновлен Агент 42: роль «Джей Джона» адаптирует новости по ссылкам; заметки и стикеры можно создавать из сообщений и выделенного текста; улучшены поиск по базе и качество ответов.
+- Добавлены сезонное оформление, тема «Windows 95», фоны и аватарки чата, анимации, праздничные фразы и визуальные улучшения.
+- Добавлены экспорт всей базы в Markdown, быстрая синхронизация бэкапа и «Цитатник» 2.0 для объявлений администратора.
+- Исправлены ссылки в модуле «Профиль» и повышена общая стабильность.
 
 ---
 
 ## 🚀 Возможности приложения
 
 <p align="center">
-  <img src="screenshots/Modules.png" width="90%" alt="Главные модули">
+  <img src="screenshots/Screenshots%20RU/ModulesRU.png" width="90%" alt="Главные модули">
 </p>
 
 ### 🛠 Модули для работы с контентом
 Мы разделили рабочее пространство на специализированные инструменты, чтобы вы могли сфокусироваться на главном:
 
 <p align="center">
-  <img src="screenshots/Contentinator.png" width="45%" alt="Контентинатор и заметки">
-  <img src="screenshots/Scenarinator.png" width="45%" alt="Сценаринатор">
+  <img src="screenshots/Screenshots%20RU/ContentinatorRU.png" width="45%" alt="Контентинатор и заметки">
+  <img src="screenshots/Screenshots%20RU/ScenarinatorRU.png" width="45%" alt="Сценаринатор">
 </p>
 
 <p align="center">
-  <img src="screenshots/Kanban.png" width="45%" alt="Канбанинатор">
-  <img src="screenshots/AI.png" width="45%" alt="Модуль ИИ агента">
+  <img src="screenshots/Screenshots%20RU/KanbanRU.png" width="45%" alt="Канбанинатор">
+  <img src="screenshots/Screenshots%20RU/AIRU.png" width="45%" alt="Модуль ИИ-агента">
 </p>
 
-### 💎 Преимущества и Профиль
+### 💎 Профиль
 <p align="center">
-  <img src="screenshots/Profile.png" width="45%" alt="Профиль">
-  <img src="screenshots/Advantages.png" width="45%" alt="Плюсы приложения">
+  <img src="screenshots/Screenshots%20RU/ProfileRU.png" width="45%" alt="Профиль">
 </p>
 
 ---
@@ -50,15 +57,22 @@
 2. **Разрешите установку**: При открытии файла выберите **Настройки** -> **"Разрешить для этого источника"**.
 3. **Завершите установку**: Подтвердите действие и пользуйтесь!
 
-> **Требования:** Android 12.0+ (API 31+). Размер ~6 МБ.
+> **Требования:** Android 12.0+ (API 31+). Размер ~7.4 МБ.
 
 ---
 
 ## 🛡 Безопасность и Конфиденциальность
 
-Проект работает локально и не собирает ваши данные.
-* **SHA-256 Хеш (v1.1.1):** `B39D4AC64F7FEF897B89CD7DFBEAFE4E66B357B19C337AA99EF77862FA439FC4`
-* **Подпись:** Ilya Sankov (Fingerprint SHA-256: `5DB67...4C09`)
+Эта политика относится к приложению Contentinator, разработанному Ильей Саньковым. Полный текст доступен в [политике конфиденциальности](./privacy.html#ru).
+
+1. **Сбор и использование данных:** Мы не собираем и не передаем ваши персональные данные на наши серверы.
+2. **Локальное хранение:** Все данные хранятся только на вашем устройстве. При удалении приложения данные стираются.
+3. **Взаимодействие с AI:** Запросы отправляются напрямую AI-провайдерам через ваши личные ключи. Разработчик не имеет к ним доступа.
+4. **Объявления и анонсы:** Все объявления, анонсы и партнерские предложения формируются и публикуются лично разработчиком Contentinator. Для их получения приложение периодически обращается к защищенному хранилищу на GitHub Gist. Мы не собираем ваши личные данные; при таких запросах передаются только стандартные технические параметры, необходимые для работы сети.
+
+**Контакт:** [ilushasankov@gmail.com](mailto:ilushasankov@gmail.com)<br>
+**Обновлено:** 28 августа 2026 г.<br>
+**Подпись:** Ilya Sankov (Fingerprint SHA-256: `5DB67...4C09`)
 
 ---
 
