@@ -3,238 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contentinator - Cockpit for Creators</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#111315">
+    <meta name="description" content="Contentinator — бесплатное Android-приложение для идей, сценариев и контент-планов. Работает офлайн, без рекламы и регистрации.">
+    <title>Contentinator — идеи и контент-планы в одном месте</title>
     <style>
         :root {
-            --primary: #bb86fc;
-            --accent: #03dac6;
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --error: #cf6679;
+            color-scheme: dark;
+            --background: #111315;
+            --surface: #191d20;
+            --ink: #f1f2ef;
+            --muted: #a0a5a3;
+            --line: #2c3234;
+            --accent: #72dfc9;
+            --accent-dark: #9aefdf;
+            --soft-accent: #1d3834;
+            --content-width: 1120px;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
             margin: 0;
+            background: var(--background);
+            color: var(--ink);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Lang Switcher */
-        .nav { position: fixed; top: 0; width: 100%; padding: 20px; display: flex; justify-content: flex-end; z-index: 1000; background: linear-gradient(to bottom, var(--bg), transparent); }
-        .lang-btn {
-            background: var(--surface);
-            border: 1px solid #333;
-            color: var(--text-dim);
-            padding: 8px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        .lang-btn.active { border-color: var(--accent); color: var(--accent); }
+        a { color: inherit; }
 
-        /* Hero Section */
-        .hero {
-            padding: 120px 20px 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
+        .container {
+            width: min(calc(100% - 48px), var(--content-width));
+            margin-inline: auto;
         }
-        .app-icon { font-size: 80px; margin-bottom: 20px; display: inline-block; filter: drop-shadow(0 0 20px var(--primary)); }
-        h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; background: linear-gradient(45deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tagline { font-size: 1.4rem; color: var(--text-dim); margin: 20px 0 40px; }
 
-        .btn-download {
-            background: var(--accent);
-            color: #000;
-            padding: 20px 40px;
+        .site-header { padding: 22px 0; }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 750;
+            letter-spacing: -0.04em;
             text-decoration: none;
-            border-radius: 18px;
-            font-weight: 800;
-            font-size: 1.3rem;
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(3, 218, 198, 0.3);
         }
-        .btn-download:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(3, 218, 198, 0.5); }
 
-        /* Grid Section */
-        .grid {
+        .brand-mark {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 40px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            border-radius: 10px;
+            background: var(--accent);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 800;
         }
-        .module-card {
+
+        .language-switch {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            border: 1px solid var(--line);
+            border-radius: 99px;
             background: var(--surface);
-            padding: 30px;
-            border-radius: 24px;
-            border: 1px solid #222;
-            text-align: left;
         }
-        .module-card:hover { border-color: #444; background: #222; transform: scale(1.02); }
-        .module-card span { font-size: 2rem; margin-bottom: 15px; display: block; }
-        .module-card h3 { margin: 10px 0; color: var(--primary); }
-        .module-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 0; }
 
-        /* Agent 42 Highlight */
-        .agent-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            margin: 60px 20px;
-            padding: 50px;
-            border-radius: 40px;
-            border: 2px solid var(--primary);
+        .lang-btn {
+            padding: 6px 11px;
+            border: 0;
+            border-radius: 99px;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .lang-btn.active {
+            background: var(--ink);
+            color: white;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 0.84fr;
+            align-items: center;
+            gap: clamp(36px, 8vw, 100px);
+            padding-top: clamp(45px, 8vw, 100px);
+            padding-bottom: clamp(65px, 10vw, 120px);
+        }
+
+        .eyebrow {
+            margin: 0 0 18px;
+            color: var(--accent-dark);
+            font-size: 0.8rem;
+            font-weight: 750;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3, p { margin-top: 0; }
+
+        h1 {
+            max-width: 620px;
+            margin-bottom: 20px;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 750;
+            letter-spacing: -0.075em;
+            line-height: 0.99;
+        }
+
+        .hero-copy {
+            max-width: 540px;
+            margin-bottom: 28px;
+            color: #c0c4c1;
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+            line-height: 1.65;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px 20px;
+        }
+
+        .download-button {
+            display: inline-flex;
+            min-height: 54px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 23px;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #101614;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            background: var(--accent-dark);
+            color: #101614;
+        }
+
+        .download-note {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .fact {
+            padding: 22px 18px;
             text-align: center;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .warning-footer { color: var(--error); font-size: 0.85rem; max-width: 600px; margin: 40px auto; padding: 15px; border: 1px dashed var(--error); border-radius: 15px; }
+        .fact + .fact { border-left: 1px solid var(--line); }
 
-        .updates-section { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
-        .updates-section h2 { color: var(--accent); }
-        .release-notes { background: var(--surface); padding: 28px; border-radius: 18px; border: 1px solid #333; }
-        .release-notes h3 { margin-top: 0; color: var(--primary); }
-        .release-notes ul { padding-left: 22px; color: var(--text-dim); }
-        .screenshots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
-        .screenshot-card { margin: 0; background: var(--surface); border: 1px solid #333; border-radius: 12px; overflow: hidden; }
-        .screenshot-card img { display: block; width: 100%; height: auto; }
-        .screenshot-card figcaption { padding: 12px 14px; color: var(--text-dim); }
+        .fact strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 750;
+        }
 
-        footer { padding: 40px; text-align: center; color: #555; font-size: 0.9rem; }
-        footer a { color: #888; text-decoration: none; margin: 0 10px; }
+        .fact span {
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .hero { padding-top: 80px; }
+        .section { padding: clamp(68px, 9vw, 108px) 0; }
+
+        .section-heading {
+            max-width: 650px;
+            margin-bottom: 34px;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 10px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.06em;
+            line-height: 1.1;
+        }
+
+        .section-heading p {
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .module-card {
+            min-height: 174px;
+            padding: 23px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        .module-icon {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            margin-bottom: 20px;
+            place-items: center;
+            border-radius: 11px;
+            background: var(--soft-accent);
+            font-size: 1.2rem;
+        }
+
+        .module-card h3 {
+            margin-bottom: 5px;
+            font-size: 1.02rem;
+            letter-spacing: -0.02em;
+        }
+
+        .module-card p {
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 0.91rem;
+        }
+
+        .privacy-section {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 50px;
+            padding: clamp(30px, 5vw, 58px);
+            border-radius: 22px;
+            background: #1c2224;
+        }
+
+        .privacy-section h2 {
+            margin-bottom: 10px;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            letter-spacing: -0.06em;
+            line-height: 1.1;
+        }
+
+        .privacy-section > div > p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .privacy-points {
+            display: grid;
+            gap: 18px;
+        }
+
+        .privacy-point {
+            padding-left: 18px;
+            border-left: 2px solid var(--accent);
+        }
+
+        .privacy-point strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+
+        .privacy-point p {
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .release-card {
+            padding: 25px 28px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        .release-card h3 {
+            margin-bottom: 13px;
+            font-size: 1.1rem;
+        }
+
+        .release-card ul {
+            display: grid;
+            gap: 8px;
+            margin: 0;
+            padding-left: 20px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-card {
+            margin: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        .screenshot-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            object-fit: contain;
+            background: #1c2224;
+        }
+
+        .screenshot-card figcaption {
+            padding: 13px 15px;
+            font-size: 0.9rem;
+            font-weight: 650;
+        }
+
+        .bottom-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-top: 8px;
+            padding: 30px 0 68px;
+            border-top: 1px solid var(--line);
+        }
+
+        .bottom-cta p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 23px 0 32px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px 24px;
+        }
+
+        .footer-links { display: flex; gap: 20px; }
+
+        .footer-links a { text-decoration-color: #555d5d; }
+
+        :focus-visible {
+            outline: 3px solid #72dfc9;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .modules-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .privacy-section { grid-template-columns: 1fr; gap: 28px; }
+        }
+
+        @media (max-width: 560px) {
+            .container { width: min(calc(100% - 36px), var(--content-width)); }
+            .site-header { padding: 16px 0; }
+            .hero { padding-top: 58px; padding-bottom: 48px; }
+            h1 { font-size: clamp(3.3rem, 16vw, 4.8rem); }
+            .facts { grid-template-columns: repeat(2, 1fr); }
+            .fact { padding: 16px 8px; }
+            .fact:nth-child(3) { border-left: 0; }
+            .fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
+            .modules-grid { grid-template-columns: 1fr; }
+            .module-card { min-height: 0; }
+            .module-icon { margin-bottom: 13px; }
+            .screenshots-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+            .screenshot-card figcaption { padding: 11px; font-size: 0.82rem; }
+            .bottom-cta { align-items: flex-start; flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
         }
     </style>
 </head>
 <body>
-
-    <div class="nav">
-        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
-
-    <section class="hero">
-        <div class="app-icon">🚀</div>
-        <h1>Contentinator</h1>
-        
-        <p class="tagline" data-lang-id="tagline">Логистический хаб для твоих творческих идей</p>
-        
-        <a href="#" id="mainDownloadBtn" class="btn-download" data-lang-id="download">Скачать APK</a>
-        
-        <div class="warning-footer" data-lang-id="warning">
-            ⚠️ При установке разрешите "Неизвестные источники". Это безопасно — приложение работает локально.
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#" aria-label="Contentinator">
+                <span class="brand-mark" aria-hidden="true">c</span>
+                <span>Contentinator</span>
+            </a>
+            <div class="language-switch" aria-label="Language">
+                <button class="lang-btn active" type="button" aria-pressed="true" onclick="setLang('ru')">RU</button>
+                <button class="lang-btn" type="button" aria-pressed="false" onclick="setLang('en')">EN</button>
+            </div>
         </div>
-    </section>
+    </header>
 
-    <div class="grid" id="modulesGrid">
-        <!-- Cards injected by JS -->
-    </div>
+    <main>
+        <section class="container hero">
+            <div>
+                <p class="eyebrow" data-lang-id="eyebrow">Android-приложение для контент-планов</p>
+                <h1>Contentinator</h1>
+                <p class="hero-copy" data-lang-id="tagline">Храните идеи, пишите сценарии и планируйте публикации для своих проектов — всё в одном приложении.</p>
+                <div class="hero-actions">
+                    <a href="#" id="mainDownloadBtn" class="download-button" data-lang-id="download">Скачать APK <span aria-hidden="true">↗</span></a>
+                    <p class="download-note" data-lang-id="download-note">Бесплатно · без рекламы</p>
+                </div>
+            </div>
+        </section>
 
-    <section class="agent-section">
-        <span style="font-size: 3rem;">👾</span>
-        <h2 data-lang-id="agent-title">Агент 42</h2>
-        <p data-lang-id="agent-desc">Встроенный ИИ-помощник, который знает всё о твоём контенте. Дожмёт пост, напишет сценарий и выведет из кризиса.</p>
-    </section>
+        <section class="container facts" aria-label="О приложении">
+            <div class="fact"><strong>Android 12+</strong><span data-lang-id="fact-platform">для смартфонов</span></div>
+            <div class="fact"><strong>~7 МБ</strong><span data-lang-id="fact-size">небольшой размер</span></div>
+            <div class="fact"><strong data-lang-id="fact-free">Бесплатно</strong><span data-lang-id="fact-no-ads">без рекламы</span></div>
+            <div class="fact"><strong data-lang-id="fact-offline">Офлайн</strong><span data-lang-id="fact-local">данные на устройстве</span></div>
+        </section>
 
-    <section class="updates-section">
-        <h2 data-lang-id="release-heading">Последнее обновление</h2>
-        <div class="release-notes">
-            <h3>Contentinator 1.1.2</h3>
-            <ul id="releaseNotes"></ul>
-        </div>
-    </section>
+        <section class="container section">
+            <div class="section-heading">
+                <p class="eyebrow" data-lang-id="modules-eyebrow">Внутри приложения</p>
+                <h2 data-lang-id="modules-heading">Всё для работы с контентом</h2>
+                <p data-lang-id="modules-intro">Разложите идеи и задачи по проектам, чтобы потом не вспоминать, куда вы это записали.</p>
+            </div>
+            <div class="modules-grid" id="modulesGrid"></div>
+        </section>
 
-    <section class="updates-section">
-        <h2 data-lang-id="screenshots-heading">Скриншоты</h2>
-        <div class="screenshots-grid" id="screenshotsGrid"></div>
-    </section>
+        <section class="container privacy-section">
+            <div>
+                <p class="eyebrow" data-lang-id="privacy-eyebrow">Без облака и регистрации</p>
+                <h2 data-lang-id="privacy-heading">Ваши записи остаются вашими</h2>
+                <p data-lang-id="privacy-intro">Contentinator хранит рабочие данные локально на телефоне. Никакого аккаунта создавать не нужно.</p>
+            </div>
+            <div class="privacy-points">
+                <div class="privacy-point">
+                    <strong data-lang-id="privacy-local-title">Локальное хранение</strong>
+                    <p data-lang-id="privacy-local-desc">Идеи, сценарии и планы лежат на вашем устройстве. Приложение работает без интернета.</p>
+                </div>
+                <div class="privacy-point">
+                    <strong data-lang-id="privacy-ai-title">ИИ — по желанию</strong>
+                    <p data-lang-id="privacy-ai-desc">Для Агента 42 вы сами подключаете API-ключ. Запросы уходят напрямую выбранному AI-сервису, не через разработчика.</p>
+                </div>
+                <div class="privacy-point">
+                    <strong data-lang-id="privacy-export-title">Можно забрать данные</strong>
+                    <p data-lang-id="privacy-export-desc">Экспортируйте свою базу в Markdown, если понадобится работать с ней где-то ещё.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container section">
+            <div class="section-heading">
+                <p class="eyebrow" data-lang-id="release-eyebrow">Версия 1.1.2</p>
+                <h2 data-lang-id="release-heading">Что нового</h2>
+            </div>
+            <div class="release-card">
+                <h3>Contentinator 1.1.2</h3>
+                <ul id="releaseNotes"></ul>
+            </div>
+        </section>
+
+        <section class="container section">
+            <div class="section-heading">
+                <p class="eyebrow" data-lang-id="screenshots-eyebrow">Посмотрите внутри</p>
+                <h2 data-lang-id="screenshots-heading">Скриншоты приложения</h2>
+            </div>
+            <div class="screenshots-grid" id="screenshotsGrid"></div>
+        </section>
+
+        <section class="container bottom-cta">
+            <p data-lang-id="bottom-cta">Нужен блокнот для идей и контент-планов? Попробуйте Contentinator.</p>
+            <a href="#" id="bottomDownloadBtn" class="download-button" data-lang-id="download">Скачать APK <span aria-hidden="true">↗</span></a>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Contentinator by Ilusha Sankov</p>
-        <a href="https://github.com/ilushasankov" target="_blank">GitHub</a> | 
-        <a href="privacy.html#ru" id="privacyLink" data-lang-id="privacy">Политика конфиденциальности</a>
+        <div class="container footer-inner">
+            <span>&copy; 2026 Contentinator · Ilusha Sankov</span>
+            <div class="footer-links">
+                <a href="https://github.com/ilushasankov" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="privacy.html#ru" id="privacyLink" data-lang-id="privacy-link">Политика конфиденциальности</a>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Ссылка на APK файл из раздела Releases
         const APK_URL = "https://github.com/ilushasankov/contentinator/releases/download/v1.1.2/Contentinator_v1.1.2.apk";
 
         const translations = {
             ru: {
-                tagline: "Твой ультимативный кокпит для криэйторов. Наведи порядок в хаосе идей сегодня!",
+                eyebrow: "Android-приложение для контент-планов",
+                tagline: "Храните идеи, пишите сценарии и планируйте публикации для своих проектов — всё в одном приложении.",
                 download: "Скачать APK",
-                warning: "⚠️ Android может предупредить о файле. Разрешите установку в настройках — это стандарт для APK.",
-                "agent-title": "Агент 42",
-                "agent-desc": "Твой личный ИИ-ассистент. Он анализирует все твои модули и помогает создавать контент на основе твоего Tone of Voice.",
-                privacy: "Приватность",
-                "release-heading": "Последнее обновление",
-                "screenshots-heading": "Скриншоты",
+                "download-note": "Бесплатно · без рекламы",
+                "fact-platform": "для смартфонов",
+                "fact-size": "небольшой размер",
+                "fact-free": "Бесплатно",
+                "fact-no-ads": "без рекламы",
+                "fact-offline": "Офлайн",
+                "fact-local": "данные на устройстве",
+                "modules-eyebrow": "Внутри приложения",
+                "modules-heading": "Всё для работы с контентом",
+                "modules-intro": "Разложите идеи и задачи по проектам, чтобы потом не вспоминать, куда вы это записали.",
+                "privacy-eyebrow": "Без облака и регистрации",
+                "privacy-heading": "Ваши записи остаются вашими",
+                "privacy-intro": "Contentinator хранит рабочие данные локально на телефоне. Никакого аккаунта создавать не нужно.",
+                "privacy-local-title": "Локальное хранение",
+                "privacy-local-desc": "Идеи, сценарии и планы лежат на вашем устройстве. Приложение работает без интернета.",
+                "privacy-ai-title": "ИИ — по желанию",
+                "privacy-ai-desc": "Для Агента 42 вы сами подключаете API-ключ. Запросы уходят напрямую выбранному AI-сервису, не через разработчика.",
+                "privacy-export-title": "Можно забрать данные",
+                "privacy-export-desc": "Экспортируйте свою базу в Markdown, если понадобится работать с ней где-то ещё.",
+                "release-eyebrow": "Версия 1.1.2",
+                "release-heading": "Что нового",
+                "screenshots-eyebrow": "Посмотрите внутри",
+                "screenshots-heading": "Скриншоты приложения",
+                "bottom-cta": "Нужен блокнот для идей и контент-планов? Попробуйте Contentinator.",
+                "privacy-link": "Политика конфиденциальности",
                 releaseNotes: [
-                    "Новый раздел «Политика и логи» в настройках.",
-                    "Глобальное обновление Агента 42: роль «Джей Джона» для адаптации новостей по ссылкам; создание заметок и стикеров из сообщений и выделенного текста; улучшенный поиск по базе и более качественные ответы.",
-                    "Сезонное оформление, тема «Windows 95», пользовательские фоны и аватарки в чате, новые анимации, праздничные фразы и визуальные улучшения.",
-                    "Экспорт всей базы в Markdown и быстрая синхронизация бэкапа; «Цитатник» 2.0 для анонсов и объявлений от администратора.",
-                    "Исправлена работа ссылок в модуле «Профиль» и повышена общая стабильность."
+                    "В настройках появился раздел «Политика и логи».",
+                    "Обновлён Агент 42: появилась роль «Джей Джона», создание заметок и стикеров из сообщений и выделенного текста, улучшились поиск по базе и ответы.",
+                    "Добавлены сезонное оформление, тема «Windows 95», фоны и аватарки чата, анимации и другие визуальные детали.",
+                    "Появились экспорт базы в Markdown, быстрая синхронизация бэкапа и «Цитатник» 2.0 для объявлений.",
+                    "Исправлена работа ссылок в профиле и повышена стабильность."
                 ],
                 modules: [
-                    { icon: "💡", title: "Контентинатор", desc: "Сборник идей и черновиков. Твой идеальный контент-план на недели вперед." },
-                    { icon: "🎬", title: "Сценаринатор", desc: "Удобная работа со сценариями для Reels, YouTube и TikTok по сценам." },
-                    { icon: "🧩", title: "Рубрикатор", desc: "Система постоянных рубрик для сообществ без выгорания." },
-                    { icon: "📑", title: "Канбанинатор", desc: "Визуализация задач и процессов на стильной доске." },
-                    { icon: "📊", title: "Рекламоинатор", desc: "Контроль бюджетов, закупка рекламы и расчет стоимости подписчика (CPS)." }
+                    { icon: "💡", title: "Идеи и заметки", desc: "Собирайте идеи для постов, коротких видео и других форматов." },
+                    { icon: "🎬", title: "Сценарии", desc: "Пишите и дорабатывайте сценарии в отдельном месте." },
+                    { icon: "🗒️", title: "Бесконечная доска", desc: "Раскладывайте мысли на стикерах и связывайте их между собой." },
+                    { icon: "📣", title: "Рекламные карточки", desc: "Храните контакты, статистику и информацию о размещениях." },
+                    { icon: "📅", title: "Мероприятия", desc: "Планируйте онлайн- и офлайн-события для своих проектов." },
+                    { icon: "🔗", title: "Ссылки и материалы", desc: "Собирайте нужные ссылки и информацию по папкам." }
                 ],
                 screenshots: [
-                    { file: "ContentinatorRU.png", title: "Контентинатор" },
-                    { file: "ScenarinatorRU.png", title: "Сценаринатор" },
-                    { file: "KanbanRU.png", title: "Канбанинатор" },
-                    { file: "ModulesRU.png", title: "Модули" },
+                    { file: "ContentinatorRU.png", title: "Идеи и заметки" },
+                    { file: "ScenarinatorRU.png", title: "Сценарии" },
+                    { file: "KanbanRU.png", title: "Доска и задачи" },
+                    { file: "ModulesRU.png", title: "Главная" },
                     { file: "ProfileRU.png", title: "Профиль" },
                     { file: "AIRU.png", title: "Агент 42" }
                 ]
             },
             en: {
-                tagline: "The ultimate cockpit for creators. Bring order to the chaos of ideas today!",
+                eyebrow: "An Android app for content planning",
+                tagline: "Keep ideas, write scripts, and plan posts for all your projects — all in one app.",
                 download: "Download APK",
-                warning: "⚠️ Android may show a warning. Allow 'Unknown sources' in settings — it's standard for direct APK installs.",
-                "agent-title": "Agent 42",
-                "agent-desc": "Built-in AI assistant that understands your entire database. It polishes posts and breaks creative blocks.",
-                privacy: "Privacy Policy",
-                "release-heading": "Latest Update",
-                "screenshots-heading": "Screenshots",
+                "download-note": "Free · no ads",
+                "fact-platform": "for your phone",
+                "fact-size": "small download",
+                "fact-free": "Free",
+                "fact-no-ads": "no ads",
+                "fact-offline": "Offline",
+                "fact-local": "stored on your device",
+                "modules-eyebrow": "Inside the app",
+                "modules-heading": "Tools for your content",
+                "modules-intro": "Keep ideas and tasks sorted by project, so you don't have to remember where you wrote something down.",
+                "privacy-eyebrow": "No cloud account needed",
+                "privacy-heading": "Your notes stay yours",
+                "privacy-intro": "Contentinator stores your work locally on your phone. No account required.",
+                "privacy-local-title": "Stored locally",
+                "privacy-local-desc": "Ideas, scripts, and plans stay on your device. The app works without an internet connection.",
+                "privacy-ai-title": "AI is optional",
+                "privacy-ai-desc": "To use Agent 42, connect your own API key. Requests go directly to your chosen AI service, not through the developer.",
+                "privacy-export-title": "Take your data with you",
+                "privacy-export-desc": "Export your database to Markdown if you want to use it somewhere else.",
+                "release-eyebrow": "Version 1.1.2",
+                "release-heading": "What's new",
+                "screenshots-eyebrow": "A look inside",
+                "screenshots-heading": "App screenshots",
+                "bottom-cta": "Looking for a place to keep ideas and content plans? Give Contentinator a try.",
+                "privacy-link": "Privacy policy",
                 releaseNotes: [
-                    "Added a new Policy & Logs section in Settings.",
-                    "Major Agent 42 update: the Jay Jonah role adapts news from links; create notes and stickers from messages or selected text; improved database search and answer quality.",
-                    "Seasonal decorations, a Windows 95 theme, custom chat backgrounds and avatars, new animations, festive messages, and visual refinements.",
-                    "Export the full database to Markdown and sync backups faster; Quote Book 2.0 for admin announcements and important updates.",
-                    "Fixed links in the Profile module and improved overall stability."
+                    "Added a Policy & Logs section in Settings.",
+                    "Updated Agent 42 with a new Jay Jonah role, note and sticker creation from messages or selected text, improved database search, and better answers.",
+                    "Added seasonal decorations, a Windows 95 theme, chat backgrounds and avatars, animations, and other visual touches.",
+                    "Added Markdown database export, faster backup sync, and Quote Book 2.0 for announcements.",
+                    "Fixed profile links and improved stability."
                 ],
                 modules: [
-                    { icon: "💡", title: "Contentinator", desc: "Idea hub and drafts. Your perfect content plan weeks in advance." },
-                    { icon: "🎬", title: "Scenarinator", desc: "Script engine for Reels, YouTube, and TikTok broken into scenes." },
-                    { icon: "🧩", title: "Rubricator", desc: "Manage recurring community categories without the burnout." },
-                    { icon: "📑", title: "Kanbaninator", desc: "Task visualization and workflow management on a sleek board." },
-                    { icon: "📊", title: "Ad-inator", desc: "Budget control, ad placements, and subscriber cost (CPS) tracking." }
+                    { icon: "💡", title: "Ideas & notes", desc: "Collect ideas for posts, short videos, and other formats." },
+                    { icon: "🎬", title: "Scripts", desc: "Write and revise scripts in their own space." },
+                    { icon: "🗒️", title: "Infinite board", desc: "Lay out thoughts as stickers and connect them." },
+                    { icon: "📣", title: "Ad cards", desc: "Keep contacts, stats, and placement details together." },
+                    { icon: "📅", title: "Events", desc: "Plan online and in-person events for your projects." },
+                    { icon: "🔗", title: "Links & resources", desc: "Collect useful links and information in folders." }
                 ],
                 screenshots: [
-                    { file: "Contentinator.png", title: "Contentinator" },
-                    { file: "Scenarinator.png", title: "Scenarinator" },
-                    { file: "Kanban.png", title: "Kanbaninator" },
-                    { file: "Modules.png", title: "Modules" },
+                    { file: "Contentinator.png", title: "Ideas & notes" },
+                    { file: "Scenarinator.png", title: "Scripts" },
+                    { file: "Kanban.png", title: "Board & tasks" },
+                    { file: "Modules.png", title: "Home" },
                     { file: "Profile.png", title: "Profile" },
                     { file: "AI.png", title: "Agent 42" }
                 ]
@@ -242,47 +624,45 @@
         };
 
         function setLang(lang) {
+            const content = translations[lang];
             document.documentElement.lang = lang;
 
-            // Update buttons state
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            document.querySelectorAll(".lang-btn").forEach(button => {
+                const isActive = button.textContent.trim().toLowerCase() === lang;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-pressed", String(isActive));
             });
 
-            // Update main text elements
-            document.querySelectorAll('[data-lang-id]').forEach(el => {
-                const id = el.getAttribute('data-lang-id');
-                if (translations[lang][id]) el.innerText = translations[lang][id];
+            document.querySelectorAll("[data-lang-id]").forEach(element => {
+                const id = element.getAttribute("data-lang-id");
+                if (content[id]) element.textContent = content[id];
             });
 
-            // Update URLs
-            document.getElementById('mainDownloadBtn').href = APK_URL;
-            document.getElementById('privacyLink').href = `privacy.html#${lang}`;
+            document.getElementById("mainDownloadBtn").href = APK_URL;
+            document.getElementById("bottomDownloadBtn").href = APK_URL;
+            document.getElementById("privacyLink").href = `privacy.html#${lang}`;
 
-            // Re-render modules grid
-            const grid = document.getElementById('modulesGrid');
-            grid.innerHTML = translations[lang].modules.map(m => `
-                <div class="module-card">
-                    <span>${m.icon}</span>
-                    <h3>${m.title}</h3>
-                    <p>${m.desc}</p>
-                </div>
-            `).join('');
+            document.getElementById("modulesGrid").innerHTML = content.modules.map(module => `
+                <article class="module-card">
+                    <span class="module-icon" aria-hidden="true">${module.icon}</span>
+                    <h3>${module.title}</h3>
+                    <p>${module.desc}</p>
+                </article>
+            `).join("");
 
-            document.getElementById('releaseNotes').innerHTML = translations[lang].releaseNotes
-                .map(note => `<li>${note}</li>`).join('');
+            document.getElementById("releaseNotes").innerHTML = content.releaseNotes
+                .map(note => `<li>${note}</li>`).join("");
 
-            const screenshotFolder = lang === 'ru' ? 'Screenshots%20RU' : 'Screenshots%20EN';
-            document.getElementById('screenshotsGrid').innerHTML = translations[lang].screenshots.map(image => `
+            const screenshotFolder = lang === "ru" ? "Screenshots%20RU" : "Screenshots%20EN";
+            document.getElementById("screenshotsGrid").innerHTML = content.screenshots.map(image => `
                 <figure class="screenshot-card">
                     <img src="screenshots/${screenshotFolder}/${image.file}" alt="${image.title}" loading="lazy">
                     <figcaption>${image.title}</figcaption>
                 </figure>
-            `).join('');
+            `).join("");
         }
 
-        // Run on load
-        setLang('ru');
+        setLang("ru");
     </script>
 </body>
 </html>
