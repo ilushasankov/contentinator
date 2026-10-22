@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#111315">
-    <meta name="description" content="Contentinator — бесплатное Android-приложение для идей, сценариев и контент-планов. Работает офлайн, без рекламы и регистрации.">
-    <title>Contentinator — идеи и контент-планы в одном месте</title>
+    <meta name="description" content="Contentinator — бесплатный Android-блокнот для идей постов, сценариев и заметок. Работает офлайн, без рекламы и регистрации.">
+    <title>Contentinator — блокнот для идей и сценариев</title>
     <style>
         :root {
             color-scheme: dark;
@@ -169,7 +169,7 @@
 
         .facts {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
         }
@@ -395,7 +395,7 @@
             h1 { font-size: clamp(3.3rem, 16vw, 4.8rem); }
             .facts { grid-template-columns: repeat(2, 1fr); }
             .fact { padding: 16px 8px; }
-            .fact:nth-child(3) { border-left: 0; }
+            .fact:nth-child(3), .fact:nth-child(5) { border-left: 0; }
             .fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
             .modules-grid { grid-template-columns: 1fr; }
             .module-card { min-height: 0; }
@@ -428,9 +428,9 @@
     <main>
         <section class="container hero">
             <div>
-                <p class="eyebrow" data-lang-id="eyebrow">Android-приложение для контент-планов</p>
+                <p class="eyebrow" data-lang-id="eyebrow">Блокнот для идей и сценариев на Android</p>
                 <h1>Contentinator</h1>
-                <p class="hero-copy" data-lang-id="tagline">Храните идеи, пишите сценарии и планируйте публикации для своих проектов — всё в одном приложении.</p>
+                <p class="hero-copy" data-lang-id="tagline">Записывайте идеи для постов, сохраняйте сценарии и заметки для проектов — всё в одном месте.</p>
                 <div class="hero-actions">
                     <a href="#" id="mainDownloadBtn" class="download-button" data-lang-id="download">Скачать APK <span aria-hidden="true">↗</span></a>
                     <p class="download-note" data-lang-id="download-note">Бесплатно · без рекламы</p>
@@ -443,6 +443,7 @@
             <div class="fact"><strong>~7 МБ</strong><span data-lang-id="fact-size">небольшой размер</span></div>
             <div class="fact"><strong data-lang-id="fact-free">Бесплатно</strong><span data-lang-id="fact-no-ads">без рекламы</span></div>
             <div class="fact"><strong data-lang-id="fact-offline">Офлайн</strong><span data-lang-id="fact-local">данные на устройстве</span></div>
+            <div class="fact"><strong id="downloadCount" aria-live="polite">…</strong><span id="downloadCountLabel" data-lang-id="download-count-loading">Загружаем счётчик</span></div>
         </section>
 
         <section class="container section">
@@ -496,14 +497,14 @@
         </section>
 
         <section class="container bottom-cta">
-            <p data-lang-id="bottom-cta">Нужен блокнот для идей и контент-планов? Попробуйте Contentinator.</p>
+            <p data-lang-id="bottom-cta">Идеи для постов, сценарии и заметки — в одном месте. Попробуйте Contentinator.</p>
             <a href="#" id="bottomDownloadBtn" class="download-button" data-lang-id="download">Скачать APK <span aria-hidden="true">↗</span></a>
         </section>
     </main>
 
     <footer>
         <div class="container footer-inner">
-            <span>&copy; 2026 Contentinator · Ilusha Sankov</span>
+            <span>&copy; 2026 Contentinator · Ilya Sankov</span>
             <div class="footer-links">
                 <a href="https://github.com/ilushasankov" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="privacy.html#ru" id="privacyLink" data-lang-id="privacy-link">Политика конфиденциальности</a>
@@ -513,13 +514,20 @@
 
     <script>
         const APK_URL = "https://github.com/ilushasankov/contentinator/releases/download/v1.1.2/Contentinator_v1.1.2.apk";
+        const RELEASE_API_URL = "https://api.github.com/repos/ilushasankov/contentinator/releases/tags/v1.1.2";
+        let currentLanguage = "ru";
+        let apkDownloadCount = null;
+        let downloadCountError = false;
 
         const translations = {
             ru: {
-                eyebrow: "Android-приложение для контент-планов",
-                tagline: "Храните идеи, пишите сценарии и планируйте публикации для своих проектов — всё в одном приложении.",
+                eyebrow: "Блокнот для идей и сценариев на Android",
+                tagline: "Записывайте идеи для постов, сохраняйте сценарии и заметки для проектов — всё в одном месте.",
                 download: "Скачать APK",
                 "download-note": "Бесплатно · без рекламы",
+                "download-count-label": "скачиваний APK",
+                "download-count-loading": "Загружаем счётчик",
+                "download-count-error": "Счётчик временно недоступен",
                 "fact-platform": "для смартфонов",
                 "fact-size": "небольшой размер",
                 "fact-free": "Бесплатно",
@@ -542,7 +550,7 @@
                 "release-heading": "Что нового",
                 "screenshots-eyebrow": "Посмотрите внутри",
                 "screenshots-heading": "Скриншоты приложения",
-                "bottom-cta": "Нужен блокнот для идей и контент-планов? Попробуйте Contentinator.",
+                "bottom-cta": "Идеи для постов, сценарии и заметки — в одном месте. Попробуйте Contentinator.",
                 "privacy-link": "Политика конфиденциальности",
                 releaseNotes: [
                     "В настройках появился раздел «Политика и логи».",
@@ -569,10 +577,13 @@
                 ]
             },
             en: {
-                eyebrow: "An Android app for content planning",
-                tagline: "Keep ideas, write scripts, and plan posts for all your projects — all in one app.",
+                eyebrow: "An Android notebook for ideas and scripts",
+                tagline: "Capture post ideas, draft scripts, and keep project notes together — all in one place.",
                 download: "Download APK",
                 "download-note": "Free · no ads",
+                "download-count-label": "APK downloads",
+                "download-count-loading": "Loading download count",
+                "download-count-error": "Download count temporarily unavailable",
                 "fact-platform": "for your phone",
                 "fact-size": "small download",
                 "fact-free": "Free",
@@ -595,7 +606,7 @@
                 "release-heading": "What's new",
                 "screenshots-eyebrow": "A look inside",
                 "screenshots-heading": "App screenshots",
-                "bottom-cta": "Looking for a place to keep ideas and content plans? Give Contentinator a try.",
+                "bottom-cta": "Post ideas, scripts, and notes — all in one place. Give Contentinator a try.",
                 "privacy-link": "Privacy policy",
                 releaseNotes: [
                     "Added a Policy & Logs section in Settings.",
@@ -623,8 +634,49 @@
             }
         };
 
+        function renderDownloadCount() {
+            const countElement = document.getElementById("downloadCount");
+            const labelElement = document.getElementById("downloadCountLabel");
+            const content = translations[currentLanguage];
+
+            if (downloadCountError) {
+                countElement.textContent = "—";
+                labelElement.textContent = content["download-count-error"];
+            } else if (apkDownloadCount !== null) {
+                const locale = currentLanguage === "ru" ? "ru-RU" : "en-US";
+                countElement.textContent = new Intl.NumberFormat(locale).format(apkDownloadCount);
+                labelElement.textContent = content["download-count-label"];
+            } else {
+                countElement.textContent = "…";
+                labelElement.textContent = content["download-count-loading"];
+            }
+        }
+
+        async function loadDownloadCount() {
+            try {
+                const response = await fetch(RELEASE_API_URL);
+                if (!response.ok) {
+                    throw new Error(`GitHub API request failed with status ${response.status}`);
+                }
+
+                const release = await response.json();
+                const apk = release.assets?.find(asset => asset.name === "Contentinator_v1.1.2.apk");
+                if (!apk || !Number.isSafeInteger(apk.download_count) || apk.download_count < 0) {
+                    throw new Error("The APK download count is missing or invalid");
+                }
+
+                apkDownloadCount = apk.download_count;
+            } catch (error) {
+                downloadCountError = true;
+                console.error("Unable to load the APK download count.", error);
+            }
+
+            renderDownloadCount();
+        }
+
         function setLang(lang) {
             const content = translations[lang];
+            currentLanguage = lang;
             document.documentElement.lang = lang;
 
             document.querySelectorAll(".lang-btn").forEach(button => {
@@ -641,6 +693,7 @@
             document.getElementById("mainDownloadBtn").href = APK_URL;
             document.getElementById("bottomDownloadBtn").href = APK_URL;
             document.getElementById("privacyLink").href = `privacy.html#${lang}`;
+            renderDownloadCount();
 
             document.getElementById("modulesGrid").innerHTML = content.modules.map(module => `
                 <article class="module-card">
@@ -663,6 +716,7 @@
         }
 
         setLang("ru");
+        loadDownloadCount();
     </script>
 </body>
 </html>
